@@ -1122,6 +1122,9 @@ class ApiController extends OCSController {
 			case 'email':
 				$shareTypes[] = IShare::TYPE_EMAIL;
 				break;
+			case 'group':
+				$shareTypes[] = IShare::TYPE_GROUP;
+				break;
 		}
 		if (empty($shareTypes)) {
 			return new DataResponse([], Http::STATUS_BAD_REQUEST);
@@ -1136,6 +1139,14 @@ class ApiController extends OCSController {
 		$offset = 0;
 		$lookup = false;  // Don't use lookup server.
 		[$result, $hasMoreResults] = $this->search->search($search, $shareTypes, $lookup, $limit, $offset);
+
+		if ($type === 'group') {
+			// Convert group to users
+			foreach(){
+				
+			}
+		}
+		
 		if ($type === 'user') {
 			// Filter out users not allowed to use the app.
 			$userCache = [];
