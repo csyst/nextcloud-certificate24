@@ -116,6 +116,38 @@
 							@click="addEmail" />
 					</div>
 				</div>
+				<div class="recipient_section">
+					<NcCheckboxRadioSwitch :checked.sync="recipient_type"
+						:disabled="shareLoading"
+						value="group"
+						name="recipient_type"
+						type="radio">
+						{{ t('certificate24', 'Add group') }}
+					</NcCheckboxRadioSwitch>
+					<div v-if="!userSelected" class="search">
+						<NcTextField ref="groupField"
+							v-observe-visibility="groupVisibilityChanged"
+							:disabled="shareLoading"
+							:value.sync="group"
+							type="text"
+							:placeholder="t('certificate24', 'Group')"
+							trailing-button-icon="close"
+							:trailing-button-label="cancelSearchLabel"
+							:show-trailing-button="isSearchingGroup"
+							@trailing-button-click="abortGroupSearch"
+							@input="handleGroupInput">
+							<Magnify :size="16" />
+						</NcTextField>
+						<SearchResults v-if="group !== ''"
+							:search-text="group"
+							:search-results="groupResults"
+							:entries-loading="groupsLoading"
+							:no-results="noGroupResults"
+							:scrollable="true"
+							:selectable="true"
+							@click="addGroup" />
+					</div>
+				</div>
 				<div>
 					<label>
 						{{ t('certificate24', 'Action to perform when the file was signed successfully:') }}
